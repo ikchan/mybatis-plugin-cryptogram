@@ -23,7 +23,7 @@ public class EncryptExecutor {
 
 	static {
 		try {
-			String resource = "resources/mybatis/config-mybatis.xml";
+			String resource = "mybatis/config-mybatis.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			cryptogram = new CryptogramImpl(key);
