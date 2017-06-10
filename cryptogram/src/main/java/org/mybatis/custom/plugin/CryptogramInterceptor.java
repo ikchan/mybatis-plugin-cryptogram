@@ -1,4 +1,4 @@
-package org.mybatis.custom;
+package org.mybatis.custom.plugin;
 
 import java.sql.Connection;
 import java.sql.Statement;
