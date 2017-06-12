@@ -11,7 +11,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.mybatis.mapper.UserMapper;
+import org.mybatis.mapper.CustomerMapper;
 
 public class NormalExecutor {
 	private static final Logger logger = LogManager.getLogger(NormalExecutor.class);
@@ -31,19 +31,18 @@ public class NormalExecutor {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 
 		try {
-			String id = "MY" + Calendar.getInstance().getTime().getMinutes() + Calendar.getInstance().getTime().getSeconds();
-
-			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
 
 			Map<String, Object> dto = new HashMap<String, Object>();
+			String id = "MY" + Calendar.getInstance().getTime().getMinutes() + Calendar.getInstance().getTime().getSeconds();
 			dto.put("id", id);
 			dto.put("name", "Richard");
 			dto.put("email", "richard@gmail.com");
-			userMapper.insert(dto);
+			customerMapper.insert(dto);
 
 			dto = new HashMap<String, Object>();
 			dto.put("id", id);
-			dto = userMapper.select(dto);
+			dto = customerMapper.select(dto);
 
 			logger.trace("############################################################");
 			logger.trace("# Select Data : " + dto.get("name"));

@@ -5,9 +5,9 @@
 
 <configuration>
     <plugins>
-        <plugin interceptor="org.mybatis.custom.CryptogramInterceptor">
-            <property name="encryptKeyword" value="name,email" />
-            <property name="decryptKeyword" value="name,email" />
+        <plugin interceptor="org.mybatis.custom.plugin.CryptogramInterceptor">
+            <property name="encryptKeyword" value="name, email" />
+            <property name="decryptKeyword" value="name, email" />
         </plugin>
     </plugins>
 
@@ -15,15 +15,26 @@
 		<environment id="default">
 			<transactionManager type="JDBC" />
 			<dataSource type="UNPOOLED">
-				<property name="driver" value="org.mariadb.jdbc.Driver" />
-				<property name="url" value="jdbc:mariadb://localhost:3306/mybatis" />
-				<property name="username" value="root" />
-				<property name="password" value="mysql!" />
+                <property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+                <property name="url" value="jdbc:oracle:thin:@localhost:1521:XE" />
+                <property name="username" value="mybatis" />
+                <property name="password" value="mybatis$" />
+<!--
+                <property name="driver" value="org.mariadb.jdbc.Driver" />
+                <property name="url" value="jdbc:mariadb://localhost:3306/mybatis" />
+                <property name="username" value="root" />
+                <property name="password" value="mysql!" />
+-->
 			</dataSource>
 		</environment>
 	</environments>
 
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="Oracle" value="oracle" />
+        <property name="MySQL" value="mysql" />
+    </databaseIdProvider>
+
 	<mappers>
-		<mapper resource="mybatis/UserMapper.xml" />
+		<mapper resource="mybatis/CustomerMapper.xml" />
 	</mappers>
 </configuration>

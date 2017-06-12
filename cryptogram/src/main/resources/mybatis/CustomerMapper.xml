@@ -3,27 +3,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.mybatis.mapper.UserMapper">
-    <resultMap id="userResultMap" type="map">
+<mapper namespace="org.mybatis.mapper.CustomerMapper">
+    <resultMap id="customerResultMap" type="map">
         <id column="ID" property="id" />
         <result column="NAME" property="name" />
         <result column="EMAIL" property="email" />
         <result column="REGISTRATION_DATE" property="registrationDate" />
     </resultMap>
 
-    <select id="select" parameterType="map" resultMap="userResultMap">
+    <select id="select" parameterType="map" resultMap="customerResultMap">
         SELECT ID
               ,NAME
               ,EMAIL
               ,REGISTRATION_DATE
-        FROM USER
+        FROM CUSTOMER
         WHERE ID = #{id}
     </select>
 
-    <insert id="insert" parameterType="map">
-        INSERT INTO USER
+    <insert id="insert" parameterType="map" databaseId="mysql">
+        INSERT INTO CUSTOMER
             (ID, NAME, EMAIL, REGISTRATION_DATE)
-        VALUES
+        VALUES 
             (#{id}, #{name}, #{email}, CURDATE())
+    </insert>
+
+    <insert id="insert" parameterType="map" databaseId="oracle">
+        INSERT INTO CUSTOMER
+            (ID, NAME, EMAIL, REGISTRATION_DATE)
+        VALUES 
+            (#{id}, #{name}, #{email}, SYSDATE)
     </insert>
 </mapper>

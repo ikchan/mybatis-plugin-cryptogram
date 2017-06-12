@@ -13,7 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.mybatis.encrypt.Cryptogram;
 import org.mybatis.encrypt.CryptogramImpl;
-import org.mybatis.mapper.UserMapper;
+import org.mybatis.mapper.CustomerMapper;
 
 public class EncryptExecutor {
 	private static final Logger logger = LogManager.getLogger(EncryptExecutor.class); 
@@ -36,19 +36,18 @@ public class EncryptExecutor {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 
 		try {
-			String id = "MY" + Calendar.getInstance().getTime().getHours() + Calendar.getInstance().getTime().getMinutes();
-
-			UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+			CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
 
 			Map<String, Object> dto = new HashMap<String, Object>();
+			String id = "MY" + Calendar.getInstance().getTime().getHours() + Calendar.getInstance().getTime().getMinutes();
 			dto.put("id", id);
 			dto.put("name", cryptogram.encrypt("Richard"));
 			dto.put("email", cryptogram.encrypt("richard@gmail.com"));
-			userMapper.insert(dto);
+			customerMapper.insert(dto);
 
 			dto = new HashMap<String, Object>();
 			dto.put("id", id);
-			dto = userMapper.select(dto);
+			dto = customerMapper.select(dto);
 
 			logger.trace("############################################################");
 			logger.trace("# Select Data : " + cryptogram.decrypt(dto.get("name")));
