@@ -38,8 +38,9 @@ public class EncryptExecutor {
 		try {
 			CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
 
-			Map<String, Object> dto = new HashMap<String, Object>();
 			String id = "MY" + Calendar.getInstance().getTime().getHours() + Calendar.getInstance().getTime().getMinutes();
+
+			Map<String, Object> dto = new HashMap<String, Object>();
 			dto.put("id", id);
 			dto.put("name", cryptogram.encrypt("Richard"));
 			dto.put("email", cryptogram.encrypt("richard@gmail.com"));

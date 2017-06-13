@@ -33,8 +33,9 @@ public class NormalExecutor {
 		try {
 			CustomerMapper customerMapper = sqlSession.getMapper(CustomerMapper.class);
 
-			Map<String, Object> dto = new HashMap<String, Object>();
 			String id = "MY" + Calendar.getInstance().getTime().getMinutes() + Calendar.getInstance().getTime().getSeconds();
+
+			Map<String, Object> dto = new HashMap<String, Object>();
 			dto.put("id", id);
 			dto.put("name", "Richard");
 			dto.put("email", "richard@gmail.com");

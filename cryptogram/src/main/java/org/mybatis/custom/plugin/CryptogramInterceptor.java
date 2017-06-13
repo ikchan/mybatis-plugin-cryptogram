@@ -58,7 +58,7 @@ public class CryptogramInterceptor implements Interceptor {
 						String key = parameterMapping.getProperty();
 						Object value = parameters.get(key);
 
-						parameters.put(key, encrypt(key, value));
+						parameters.put(key, this.encrypt(key, value));
 					}
 				} else {
 				}
@@ -82,7 +82,7 @@ public class CryptogramInterceptor implements Interceptor {
 							while (iterator.hasNext()) {
 								String key = iterator.next();
 								Object value = resultSetItem.get(key);
-								String decryptPiece = decrypt(key, value);
+								String decryptPiece = this.decrypt(key, value);
 
 								resultSetItem.put(key, decryptPiece);
 
@@ -114,7 +114,7 @@ public class CryptogramInterceptor implements Interceptor {
 					while (iterator.hasNext()) {
 						String key = iterator.next();
 						Object value = invocationMap.get(key);
-						String decryptPiece = decrypt(key, value);
+						String decryptPiece = this.decrypt(key, value);
 
 						resultSetMap.put(key, decryptPiece);
 					}
@@ -142,10 +142,8 @@ public class CryptogramInterceptor implements Interceptor {
 
 	@Override
 	public void setProperties(Properties properties) {
-		String encryptKeyword = properties.getProperty("encryptKeyword") != null
-				? String.valueOf(properties.getProperty("encryptKeyword")) : "";
-		String decryptKeyword = properties.getProperty("decryptKeyword") != null
-				? String.valueOf(properties.getProperty("decryptKeyword")) : "";
+		String encryptKeyword = properties.getProperty("encryptKeyword") != null ? String.valueOf(properties.getProperty("encryptKeyword")) : "";
+		String decryptKeyword = properties.getProperty("decryptKeyword") != null ? String.valueOf(properties.getProperty("decryptKeyword")) : "";
 		String[] arrayEncryptKeyword = encryptKeyword.split("[,]");
 		String[] arrayDecryptKeyword = decryptKeyword.split("[,]");
 		isEncrypt = arrayEncryptKeyword.length > 0 ? true : false;
